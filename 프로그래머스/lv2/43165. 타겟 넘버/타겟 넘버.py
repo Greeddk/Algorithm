@@ -9,7 +9,5 @@ def solution(numbers, target):
             tmp.append(result - num)
         arr = tmp
     
-    for result in arr:
-        if result == target:
-            answer += 1
+    answer = arr.count(target)
     return answer
