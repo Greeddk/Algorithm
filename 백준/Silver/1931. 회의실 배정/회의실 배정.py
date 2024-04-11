@@ -1,18 +1,20 @@
-n = int(input())
-meetings = []
+meeting = int(input())
+arr = []
 
-for i in range(n):
-    startTime, endTime = map(int, input().split())
-    meetings.append([startTime,endTime])
+for _ in range(meeting):
+    x,y = map(int, input().split())
+    arr.append([x,y])
 
-meetings.sort(key=lambda x: (x[1],x[0]))
+arr.sort(key=lambda x: (x[1], x[0]))
+answer = []
+end_time = 0
+for i in range(meeting):
+    if i == 0:
+        answer.append(arr[i])
+        end_time = arr[i][1]
+        continue
+    if arr[i][0] >= end_time:
+        answer.append(arr[i])
+        end_time = arr[i][1]
 
-lastEndTime = 0
-answer = 0
-
-for start, end in meetings:
-    if start >= lastEndTime:
-        lastEndTime = end
-        answer += 1
-
-print(answer) 
+print(len(answer))
