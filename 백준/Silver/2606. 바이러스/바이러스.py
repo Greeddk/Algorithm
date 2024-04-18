@@ -1,23 +1,21 @@
-from collections import deque
-
 V = int(input())
 E = int(input())
+# 인접리스트 DFS
+adj = [[] for _ in range(V+1)]
 
-adj = [[] for _ in range(V + 1)]
-visited = set()
-queue = deque([1])
-
-for i in range(E):
+for _ in range(E):
     s, e = map(int, input().split())
     adj[s].append(e)
     adj[e].append(s)
 
-while len(queue) != 0:
-    current = queue.popleft()
-    visited.add(current)
+visited = set()
+def dfs(cur):
+    visited.add(cur)
 
-    for i in adj[current]:
-        if i not in visited:
-            queue.append(i)
+    for next in adj[cur]:
+        if next not in visited:
+            dfs(next)
 
-print(len(visited) - 1)
+dfs(1)
+
+print(len(visited)-1)
