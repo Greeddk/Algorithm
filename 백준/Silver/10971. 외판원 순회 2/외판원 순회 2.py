@@ -1,35 +1,38 @@
-import sys
-input = sys.stdin.readline
+T = int(input())
+arr = [list(map(int, input().split())) for _ in range(T)]
 
-def dfs(now, cost, depth):
-    global ans
+#세팅
+visited = [0] * T
+answer = 987654321
 
-    if depth == N:                          # 기저사례
-        if cost_matrix[now][0]:             # 마지막 도착지에서 출발지(0)로 가는 길이 있다면
-            cost += cost_matrix[now][0]     # 해당 비용을 더하고
-            ans = min(ans, cost)            # 정답 갱신
+def dfs(depth, cost, cur):
+    global answer
+
+    # 방문
+    if depth == T:
+        if arr[cur][0]:
+            cost += arr[cur][0]
+            answer = min(answer, cost)
             return
-        else:                               # 마지막 도착지에서 출발지(0)로 가는 길이 없으면 그냥 리턴
+        else:
             return
-    
-    if cost > ans:                          # 백트래킹
+        
+    # 백트래킹
+    if cost > answer:
         return
-    
-    for after in range(N):
-        if visited[after] or not cost_matrix[now][after]:
+
+    # 탐색
+    for i in range(T):
+        if visited[i] or not arr[cur][i]:
             continue
         
-        visited[after] = 1
-        dfs(after, cost+cost_matrix[now][after], depth+1)
-        visited[after] = 0
 
-N = int(input())
-cost_matrix = [list(map(int, input().split())) for _ in range(N)]
+        visited[i] = 1
+        dfs(depth+1, cost + arr[cur][i], i)
+        visited[i] = 0
+        
 
-visited = [0] * N
-ans = 987654321
-
+            
 visited[0] = 1
-dfs(0, 0, 1)
-
-print(ans)
+dfs(1, 0, 0)
+print(answer)
