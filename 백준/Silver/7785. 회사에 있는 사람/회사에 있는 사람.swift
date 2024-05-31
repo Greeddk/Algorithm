@@ -1,26 +1,17 @@
 func boj7785() {
     let count = Int(readLine()!)!
-    var list: [String: Bool] = [:]
+    var dict: [String: Bool] = [:]
     
     for i in 0...count-1 {
-        let log = readLine()!.split(separator: " ")
+        let log = readLine()!.split(separator: " ").map { String($0) }
         if log[1] == "enter" {
-            list[String(log[0])] = true
+            dict[log[0]] = true
         } else {
-            list[String(log[0])] = false
+            dict[log[0]] = nil
         }
     }
-    
-    var inCompanyList: [String] = []
-    for item in list {
-        if item.value == true {
-            inCompanyList.append(item.key)
-        }
-    }
-    
-    inCompanyList.sort(by: >)
-    
-    for name in inCompanyList {
+
+    for name in dict.keys.sorted(by: > ) {
         print(name)
     }
     
