@@ -1,24 +1,31 @@
-let nm = readLine()!.split(separator: " ").map{Int(String($0))!}
-let n = nm[0]
-let m = nm[1]
-let arr = readLine()!.split(separator: " ").map{Int(String($0))!}
-
-var start = 0
-var end = arr.max()!
-
-while start <= end {
-    var sum = 0
-    let mid = (start + end) / 2
+func boj2805() {
+    let input = readLine()!.split(separator: " ").compactMap{ Int($0)! }
+    let treeNumber = input[0]
+    let treeLeng = input[1]
     
-    for i in arr{
-        if i - mid < 0{continue}
-        sum += (i - mid)
+    let list = readLine()!.split(separator: " ").compactMap{ Int($0)! }
+
+    var left = 1
+    var right = list.max()!
+    
+    while left <= right {
+        var sum = 0
+        let mid = (left + right) / 2
+        
+        for i in list {
+            if i - mid < 0 { continue }
+            sum += (i - mid)
+        }
+        
+        if sum < treeLeng {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+        
     }
     
-    if sum < m {
-        end = mid - 1
-    } else {
-        start = mid + 1
-    }
+    print(left - 1)
 }
-print(start - 1)
+
+boj2805()
